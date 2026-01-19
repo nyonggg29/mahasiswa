@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data Mahasiswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 1px solid #e1e5e9;
+            border-radius: 15px;
+            background: #fafbfc;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.95rem;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-item input[type="radio"],
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e1e5e9;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .data-table th {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        .view-btn {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .view-btn:hover {
+            background: #2980b9;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .data-table {
+                font-size: 0.8rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">🎓 MahasiswaApp</a>
+    <div>
+      <a href="index.html" class="btn btn-outline-light me-2">➕ Input Data</a>
+      <a href="tampil.php" class="btn btn-outline-info">📋 Data Mahasiswa</a>
+    </div>
+  </div>
+</nav>
+    <div class="container">
+        <div class="header">
+            <h1>� Form Data Mahasiswa</h1>
+            <p>Silakan isi data mahasiswa dengan lengkap dan benar</p>
+        </div>
+
+        <div class="form-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <form action="simpan.php" method="POST" enctype="multipart/form-data">
+                <!-- Data Pribadi -->
+                <div class="form-section">
+                    <h2 class="section-title">👤 Data Pribadi</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nama_lengkap" class="required">Nama Lengkap</label>
+                            <input type="text" id="nama_lengkap" name="nama_lengkap" required>
+                            <div class="error-message" id="nama_lengkap-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nama_panggilan">Nama Panggilan</label>
+                            <input type="text" id="nama_panggilan" name="nama_panggilan">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tempat_lahir" class="required">Tempat Lahir</label>
+                            <input type="text" id="tempat_lahir" name="tempat_lahir" required>
+                            <div class="error-message" id="tempat_lahir-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tanggal_lahir" class="required">Tanggal Lahir</label>
+                            <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+                            <div class="error-message" id="tanggal_lahir-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="jenis_kelamin" class="required">Jenis Kelamin</label>
+                            <select id="jenis_kelamin" name="jenis_kelamin" required>
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                            <div class="error-message" id="jenis_kelamin-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="agama" class="required">Agama</label>
+                            <select id="agama" name="agama" required>
+                                <option value="">Pilih Agama</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Katolik">Katolik</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Konghucu">Konghucu</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                            <div class="error-message" id="agama-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foto">Foto Mahasiswa</label>
+                        <input type="file" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
+                        <div class="error-message" id="foto-error"></div>
+                        <div id="imagePreview" style="margin-top: 10px; max-width: 200px;"></div>
+                    </div>
+                </div>
+
+                <!-- Data Kontak -->
+                <div class="form-section">
+                    <h2 class="section-title">📞 Data Kontak</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="required">Email</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="error-message" id="email-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="no_hp" class="required">Nomor HP</label>
+                            <input type="tel" id="no_hp" name="no_hp" required>
+                            <div class="error-message" id="no_hp-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamat_rumah" class="required">Alamat Rumah</label>
+                        <textarea id="alamat_rumah" name="alamat_rumah" placeholder="Alamat lengkap rumah" required></textarea>
+                        <div class="error-message" id="alamat_rumah-error"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="kota" class="required">Kota/Kabupaten</label>
+                            <input type="text" id="kota" name="kota" required>
+                            <div class="error-message" id="kota-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="provinsi" class="required">Provinsi</label>
+                            <input type="text" id="provinsi" name="provinsi" required>
+                            <div class="error-message" id="provinsi-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="kode_pos">Kode Pos</label>
+                            <input type="text" id="kode_pos" name="kode_pos">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="negara">Negara</label>
+                            <input type="text" id="negara" name="negara" value="Indonesia" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Akademik -->
+                <div class="form-section">
+                    <h2 class="section-title">🎓 Data Akademik</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nim" class="required">NIM</label>
+                            <input type="text" id="nim" name="nim" placeholder="Nomor Induk Mahasiswa" required>
+                            <div class="error-message" id="nim-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jurusan" class="required">Jurusan/Program Studi</label>
+                            <input type="text" id="jurusan" name="jurusan" placeholder="Contoh: Teknik Informatika" required>
+                            <div class="error-message" id="jurusan-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="angkatan" class="required">Angkatan</label>
+                            <input type="number" id="angkatan" name="angkatan" min="2000" max="2030" placeholder="Contoh: 2023" required>
+                            <div class="error-message" id="angkatan-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="semester">Semester</label>
+                            <input type="number" id="semester" name="semester" min="1" max="14" placeholder="Contoh: 5">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ipk">IPK</label>
+                            <input type="number" id="ipk" name="ipk" min="0" max="4" step="0.01" placeholder="Contoh: 3.75">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status_mahasiswa">Status Mahasiswa</label>
+                            <select id="status_mahasiswa" name="status_mahasiswa">
+                                <option value="">Pilih Status</option>
+                                <option value="Aktif">Aktif</option>
+                                <option value="Cuti">Cuti</option>
+                                <option value="DO">Drop Out</option>
+                                <option value="Lulus">Lulus</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">📤 Kirim Data Mahasiswa</button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                <h3>✅ Biodata Berhasil Dikirim!</h3>
+                <p>Terima kasih telah mengisi form biodata. Data Anda telah tersimpan dengan aman.</p>
+            </div>
+
+            <!-- Tampilan Data yang Sudah Diisi -->
+            <div class="form-section" id="dataSection" style="display: none;">
+                <h2 class="section-title">📊 Data yang Sudah Diisi</h2>
+                
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="showAllData()">👥 Lihat Semua Data</button>
+                    <button class="btn btn-success" onclick="exportData()">📊 Export Data</button>
+                    <button class="btn btn-warning" onclick="clearAllData()">🗑️ Hapus Semua Data</button>
+                </div>
+
+                <div id="dataContainer">
+                    <!-- Data akan ditampilkan di sini -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar update
+        function updateProgress() {
+            const form = document.getElementById('biodataForm');
+            const inputs = form.querySelectorAll('input, select, textarea');
+            const requiredInputs = form.querySelectorAll('[required]');
+            const progressFill = document.getElementById('progressFill');
+            
+            let filledRequired = 0;
+            requiredInputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    filledRequired++;
+                }
+            });
+            
+            const progress = (filledRequired / requiredInputs.length) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        // Add event listeners to all form inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('biodataForm');
+            const inputs = form.querySelectorAll('input, select, textarea');
+            
+            inputs.forEach(input => {
+                input.addEventListener('input', updateProgress);
+                input.addEventListener('change', updateProgress);
+            });
+            
+            updateProgress();
+        });
+
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = document.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                const errorElement = document.getElementById(field.name + '-error');
+                if (field.value.trim() === '') {
+                    field.style.borderColor = '#e74c3c';
+                    if (errorElement) {
+                        errorElement.textContent = 'Field ini wajib diisi';
+                        errorElement.style.display = 'block';
+                    }
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#e1e5e9';
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                }
+            });
+
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            if (email.value && !isValidEmail(email.value)) {
+                email.style.borderColor = '#e74c3c';
+                emailError.textContent = 'Format email tidak valid';
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Phone validation
+            const phone = document.getElementById('no_hp');
+            const phoneError = document.getElementById('no_hp-error');
+            if (phone.value && !isValidPhone(phone.value)) {
+                phone.style.borderColor = '#e74c3c';
+                phoneError.textContent = 'Format nomor HP tidak valid';
+                phoneError.style.display = 'block';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const phoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
+            return phoneRegex.test(phone);
+        }
+
+        // Preview image before upload
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" style="max-width: 200px; max-height: 200px; border-radius: 10px; border: 2px solid #667eea;">`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+
+        // Form submission
+        function submitForm(event) {
+            event.preventDefault();
+            
+            if (!validateForm()) {
+                alert('Mohon lengkapi semua field yang wajib diisi dengan benar.');
+                return;
+            }
+
+            // Collect form data
+            const formData = new FormData(event.target);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (key === 'foto' && value instanceof File) {
+                    // Handle file separately
+                    data.foto = value.name; // Store filename
+                } else {
+                    data[key] = value;
+                }
+            }
+
+            // Save to localStorage (ID dan timestamp akan ditambahkan di fungsi saveBiodataData)
+            saveBiodataData(data, formData.get('foto'));
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            event.target.reset();
+            updateProgress();
+            
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        }
+
+        // Save mahasiswa data to server
+        async function saveBiodataData(data, file = null) {
+            try {
+                let response;
+                if (file) {
+                    // Send with file
+                    const formData = new FormData();
+                    for (let key in data) {
+                        formData.append(key, data[key]);
+                    }
+                    formData.append('foto', file);
+                    
+                    response = await fetch('http://localhost:5000/mahasiswa', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                } else {
+                    // Send without file
+                    response = await fetch('http://localhost:5000/mahasiswa', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+                }
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Data mahasiswa berhasil disimpan:', result);
+                    
+                    // Langsung tampilkan data yang baru diisi
+                    showLatestData(data);
+                } else {
+                    throw new Error('Gagal menyimpan data');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Gagal menyimpan data. Pastikan server berjalan.');
+                // Fallback to localStorage
+                fallbackSave(data);
+            }
+        }
+
+        // Fallback save to localStorage
+        function fallbackSave(data) {
+            let existingData = localStorage.getItem('mahasiswa_submissions');
+            let submissions = [];
+            
+            if (existingData) {
+                submissions = JSON.parse(existingData);
+            }
+            
+            data.id = Date.now();
+            data.timestamp = new Date().toISOString();
+            
+            submissions.push(data);
+            localStorage.setItem('mahasiswa_submissions', JSON.stringify(submissions));
+            
+            showLatestData(data);
+        }
+
+        // Update mahasiswa data on server
+        async function updateBiodataData(id, updatedData) {
+            try {
+                const response = await fetch(`http://localhost:5000/mahasiswa/${Math.floor(id)}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedData),
+                });
+                
+                if (response.ok) {
+                    console.log('Data mahasiswa berhasil diupdate');
+                    // Refresh data display
+                    showAllData();
+                } else {
+                    throw new Error('Gagal mengupdate data');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Gagal mengupdate data. Pastikan server berjalan.');
+                // Fallback to localStorage
+                fallbackUpdate(id, updatedData);
+            }
+        }
+
+        // Fallback update to localStorage
+        function fallbackUpdate(id, updatedData) {
+            let existingData = localStorage.getItem('mahasiswa_submissions');
+            if (!existingData) return;
+            
+            let submissions = JSON.parse(existingData);
+            const index = submissions.findIndex(data => data.id === id);
+            
+            if (index === -1) return;
+            
+            updatedData.id = id;
+            updatedData.timestamp = submissions[index].timestamp;
+            
+            submissions[index] = updatedData;
+            localStorage.setItem('mahasiswa_submissions', JSON.stringify(submissions));
+            
+            showAllData();
+        }
+
+        // Tampilkan data terbaru yang baru diisi
+        function showLatestData(latestData) {
+            const dataContainer = document.getElementById('dataContainer');
+            const dataSection = document.getElementById('dataSection');
+            
+            // Tampilkan section data
+            dataSection.style.display = 'block';
+            
+            // Tampilkan data terbaru
+            const latestHTML = `
+                <div style="background: #e8f5e8; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #27ae60;">
+                    <h3>✅ Data Mahasiswa Berhasil Disimpan</h3>
+                    <div style="display: grid; grid-template-columns: auto 1fr; gap: 20px; margin-top: 15px; align-items: start;">
+                        ${latestData.foto ? `<div><img src="http://localhost:5000/uploads/${latestData.foto}" style="max-width: 100px; max-height: 100px; border-radius: 10px; border: 2px solid #27ae60;"></div>` : ''}
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div><strong>NIM:</strong> ${latestData.nim}</div>
+                            <div><strong>Nama_Lengkap:</strong> ${latestData.nama_lengkap}</div>
+                            <div><strong>Jurusan:</strong> ${latestData.jurusan}</div>
+                            <div><strong>Angkatan:</strong> ${latestData.angkatan}</div>
+                            <div><strong>Email:</strong> ${latestData.email}</div>
+                            <div><strong>No_HP:</strong> ${latestData.no_hp}</div>
+                            <div><strong>Jenis_Kelamin:</strong> ${latestData.jenis_kelamin}</div>
+                            <div><strong>Alamat:</strong> ${latestData.alamat_rumah}, ${latestData.kota}, ${latestData.provinsi}</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="showAllData()" style="margin-top: 15px;">👥 Lihat Semua Data</button>
+                </div>
+            `;
+            
+            dataContainer.innerHTML = latestHTML;
+        }
+
+        // Auto-save form data to localStorage
+        function autoSave() {
+            const form = document.getElementById('biodataForm');
+            const inputs = form.querySelectorAll('input, select, textarea');
+            
+            inputs.forEach(input => {
+                const savedValue = localStorage.getItem('biodata_' + input.name);
+                if (savedValue) {
+                    input.value = savedValue;
+                }
+                
+                input.addEventListener('input', function() {
+                    localStorage.setItem('biodata_' + this.name, this.value);
+                });
+            });
+        }
+
+        // Load saved data when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            autoSave();
+            updateProgress();
+            
+            // Check if server has data
+            try {
+                const response = await fetch('http://localhost:5000/mahasiswa');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.length > 0) {
+                        document.getElementById('dataSection').style.display = 'block';
+                    }
+                }
+            } catch (error) {
+                // Fallback to localStorage
+                const existingData = localStorage.getItem('mahasiswa_submissions');
+                if (existingData) {
+                    const submissions = JSON.parse(existingData);
+                    if (submissions.length > 0) {
+                        document.getElementById('dataSection').style.display = 'block';
+                    }
+                }
+            }
+        });
+
+        // Show all data
+        async function showAllData(filter = '') {
+            const dataContainer = document.getElementById('dataContainer');
+            
+            try {
+                const response = await fetch('http://localhost:5000/mahasiswa');
+                if (!response.ok) throw new Error('Server tidak merespons');
+                
+                let submissions = await response.json();
+                
+                // Filter data
+                const filteredSubmissions = filter ? submissions.filter(item => 
+                    item.nama_lengkap && item.nama_lengkap.toLowerCase().includes(filter.toLowerCase())
+                ) : submissions;
+                
+                if (filteredSubmissions.length === 0) {
+                    dataContainer.innerHTML = '<div class="no-data">Tidak ada data yang cocok dengan pencarian</div>';
+                    return;
+                }
+                
+                // Debug: tampilkan di console
+                console.log('Showing all data:', filteredSubmissions);
+                
+                let tableHTML = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Foto</th>
+                                <th>NIM</th>
+                                <th>Nama_Lengkap</th>
+                                <th>Jurusan</th>
+                                <th>Angkatan</th>
+                                <th>Email</th>
+                                <th>No_HP</th>
+                                <th>Jenis_Kelamin</th>
+                                <th>Tanggal_Daftar</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                filteredSubmissions.forEach((item, index) => {
+                    const date = item.timestamp ? new Date(item.timestamp).toLocaleDateString('id-ID') : 'N/A';
+                    tableHTML += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${item.nim || 'N/A'}</td>
+                            <td>${item.nama_lengkap || 'N/A'}</td>
+                            <td>${item.jurusan || 'N/A'}</td>
+                            <td>${item.angkatan || 'N/A'}</td>
+                            <td>${item.email || 'N/A'}</td>
+                            <td>${item.no_hp || 'N/A'}</td>
+                            <td>${item.jenis_kelamin || 'N/A'}</td>
+                            <td>${date}</td>
+                            <td>
+                                <button class="view-btn" onclick="viewDetail(${item.id})">👁️ Lihat</button>
+                                <button class="view-btn" style="background: #f39c12; margin-left: 5px;" onclick="editData(${item.id})">✏️ Edit</button>
+                                <button class="view-btn" style="background: #e74c3c; margin-left: 5px;" onclick="deleteData(${item.id})">🗑️ Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                tableHTML += '</tbody></table>';
+                dataContainer.innerHTML = tableHTML;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                // Fallback to localStorage
+                fallbackShowAllData(filter);
+            }
+        }
+
+        // Fallback show all data from localStorage
+        function fallbackShowAllData(filter = '') {
+            const existingData = localStorage.getItem('mahasiswa_submissions');
+            const dataContainer = document.getElementById('dataContainer');
+            
+            if (!existingData) {
+                dataContainer.innerHTML = '<div class="no-data">Belum ada data yang tersimpan</div>';
+                return;
+            }
+            
+            const submissions = JSON.parse(existingData);
+            
+            // Filter data
+            const filteredSubmissions = filter ? submissions.filter(item => 
+                item.nama_lengkap && item.nama_lengkap.toLowerCase().includes(filter.toLowerCase())
+            ) : submissions;
+            
+            if (filteredSubmissions.length === 0) {
+                dataContainer.innerHTML = '<div class="no-data">Tidak ada data yang cocok dengan pencarian</div>';
+                return;
+            }
+            
+            let tableHTML = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>NIM</th>
+                            <th>Nama_Lengkap</th>
+                            <th>Jurusan</th>
+                            <th>Angkatan</th>
+                            <th>Email</th>
+                            <th>No-HP</th>
+                            <th>Jenis_Kelamin</th>
+                            <th>Tanggal_Daftar</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            filteredSubmissions.forEach((item, index) => {
+                const date = item.timestamp ? new Date(item.timestamp).toLocaleDateString('id-ID') : 'N/A';
+                tableHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nim || 'N/A'}</td>
+                        <td>${item.nama_lengkap || 'N/A'}</td>
+                        <td>${item.jurusan || 'N/A'}</td>
+                        <td>${item.angkatan || 'N/A'}</td>
+                        <td>${item.email || 'N/A'}</td>
+                        <td>${item.no_hp || 'N/A'}</td>
+                        <td>${item.jenis_kelamin || 'N/A'}</td>
+                        <td>${date}</td>
+                        <td>
+                            <button class="view-btn" onclick="viewDetail(${item.id})">👁️ Lihat</button>
+                            <button class="view-btn" style="background: #f39c12; margin-left: 5px;" onclick="editData(${item.id})">✏️ Edit</button>
+                            <button class="view-btn" style="background: #e74c3c; margin-left: 5px;" onclick="deleteData(${item.id})">🗑️ Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</tbody></table>';
+            dataContainer.innerHTML = tableHTML;
+        }
+
+        // View detail
+        async function viewDetail(id) {
+            try {
+                const response = await fetch('http://localhost:5000/mahasiswa');
+                if (!response.ok) throw new Error('Server tidak merespons');
+                
+                const submissions = await response.json();
+                const item = submissions.find(data => Math.floor(data.id) === Math.floor(id));
+                
+                if (!item) throw new Error('Data tidak ditemukan');
+                
+                const detailHTML = `
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3>📋 Detail Data Mahasiswa: ${item.nama_lengkap}</h3>
+                        <div style="display: grid; grid-template-columns: auto 1fr; gap: 20px; margin-top: 15px; align-items: start;">
+                            ${item.foto ? `<div><img src="http://localhost:5000/uploads/${item.foto}" style="max-width: 150px; max-height: 150px; border-radius: 10px; border: 2px solid #667eea;"></div>` : '<div><div style="width: 150px; height: 150px; background: #e1e5e9; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #7f8c8d;">Tidak ada foto</div></div>'}
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div><strong>NIM:</strong> ${item.nim}</div>
+                                <div><strong>Nama_Lengkap:</strong> ${item.nama_lengkap}</div>
+                                <div><strong>Nama Panggilan:</strong> ${item.nama_panggilan || '-'}</div>
+                                <div><strong>Tempat Lahir:</strong> ${item.tempat_lahir}</div>
+                                <div><strong>Tanggal Lahir:</strong> ${new Date(item.tanggal_lahir).toLocaleDateString('id-ID')}</div>
+                                <div><strong>Jenis Kelamin:</strong> ${item.jenis_kelamin}</div>
+                                <div><strong>Agama:</strong> ${item.agama}</div>
+                                <div><strong>Email:</strong> ${item.email}</div>
+                                <div><strong>No. HP:</strong> ${item.no_hp}</div>
+                                <div><strong>Alamat:</strong> ${item.alamat_rumah}, ${item.kota}, ${item.provinsi}</div>
+                                <div><strong>Jurusan:</strong> ${item.jurusan}</div>
+                                <div><strong>Angkatan:</strong> ${item.angkatan}</div>
+                                <div><strong>Semester:</strong> ${item.semester || '-'}</div>
+                                <div><strong>IPK:</strong> ${item.ipk || '-'}</div>
+                                <div><strong>Status Mahasiswa:</strong> ${item.status_mahasiswa || '-'}</div>
+                                <div><strong>Tanggal Daftar:</strong> ${new Date(item.timestamp).toLocaleString('id-ID')}</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="this.parentElement.remove()" style="margin-top: 15px;">Tutup Detail</button>
+                    </div>
+                `;
+                
+                const dataContainer = document.getElementById('dataContainer');
+                dataContainer.insertAdjacentHTML('afterbegin', detailHTML);
+            } catch (error) {
+                console.error('Error fetching detail:', error);
+                // Fallback to localStorage
+                fallbackViewDetail(id);
+            }
+        }
+
+        // Fallback view detail from localStorage
+        function fallbackViewDetail(id) {
+            const existingData = localStorage.getItem('mahasiswa_submissions');
+            const submissions = JSON.parse(existingData);
+            const item = submissions.find(data => data.id === id);
+            
+            if (!item) return;
+            
+            const detailHTML = `
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h3>📋 Detail Data Mahasiswa: ${item.nama_lengkap}</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                        <div><strong>NIM:</strong> ${item.nim}</div>
+                        <div><strong>Nama Lengkap:</strong> ${item.nama_lengkap}</div>
+                        <div><strong>Nama Panggilan:</strong> ${item.nama_panggilan || '-'}</div>
+                        <div><strong>Tempat Lahir:</strong> ${item.tempat_lahir}</div>
+                        <div><strong>Tanggal Lahir:</strong> ${new Date(item.tanggal_lahir).toLocaleDateString('id-ID')}</div>
+                        <div><strong>Jenis Kelamin:</strong> ${item.jenis_kelamin}</div>
+                        <div><strong>Agama:</strong> ${item.agama}</div>
+                        <div><strong>Email:</strong> ${item.email}</div>
+                        <div><strong>No. HP:</strong> ${item.no_hp}</div>
+                        <div><strong>Alamat:</strong> ${item.alamat_rumah}, ${item.kota}, ${item.provinsi}</div>
+                        <div><strong>Jurusan:</strong> ${item.jurusan}</div>
+                        <div><strong>Angkatan:</strong> ${item.angkatan}</div>
+                        <div><strong>Semester:</strong> ${item.semester || '-'}</div>
+                        <div><strong>IPK:</strong> ${item.ipk || '-'}</div>
+                        <div><strong>Status Mahasiswa:</strong> ${item.status_mahasiswa || '-'}</div>
+                        <div><strong>Tanggal Daftar:</strong> ${new Date(item.timestamp).toLocaleString('id-ID')}</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="this.parentElement.remove()" style="margin-top: 15px;">Tutup Detail</button>
+                </div>
+            `;
+            
+            const dataContainer = document.getElementById('dataContainer');
+            dataContainer.insertAdjacentHTML('afterbegin', detailHTML);
+        }
+
+        // Delete data
+        async function deleteData(id) {
+            if (!confirm('Apakah Anda yakin ingin menghapus data ini?')) return;
+            
+            try {
+                const response = await fetch(`http://localhost:5000/mahasiswa/${Math.floor(id)}`, {
+                    method: 'DELETE',
+                });
+                
+                if (response.ok) {
+                    alert('Data berhasil dihapus!');
+                    showAllData();
+                } else {
+                    throw new Error('Gagal menghapus data');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Gagal menghapus data. Pastikan server berjalan.');
+                // Fallback to localStorage
+                fallbackDelete(id);
+            }
+        }
+
+        // Fallback delete from localStorage
+        function fallbackDelete(id) {
+            const existingData = localStorage.getItem('mahasiswa_submissions');
+            let submissions = JSON.parse(existingData);
+            
+            submissions = submissions.filter(data => data.id !== id);
+            
+            localStorage.setItem('mahasiswa_submissions', JSON.stringify(submissions));
+            
+            alert('Data berhasil dihapus!');
+            showAllData();
+        }
+        function exportData() {
+            // Try server first
+            fetch('http://localhost:5000/mahasiswa')
+                .then(response => {
+                    if (!response.ok) throw new Error('Server tidak merespons');
+                    return response.json();
+                })
+                .then(submissions => {
+                    if (submissions.length === 0) {
+                        alert('Tidak ada data untuk diexport');
+                        return;
+                    }
+                    
+                    const headers = [
+                        'NIM', 'Nama Lengkap', 'Nama Panggilan', 'Tempat Lahir', 'Tanggal Lahir',
+                        'Jenis Kelamin', 'Agama', 'Email', 'No HP', 'Alamat Rumah', 'Kota', 'Provinsi',
+                        'Kode Pos', 'Negara', 'Jurusan', 'Angkatan', 'Semester', 'IPK', 'Status Mahasiswa'
+                    ];
+                    
+                    let csvContent = headers.join(',') + '\n';
+                    
+                    submissions.forEach(item => {
+                        const row = [
+                            item.nim, item.nama_lengkap, item.nama_panggilan || '', item.tempat_lahir, item.tanggal_lahir,
+                            item.jenis_kelamin, item.agama, item.email, item.no_hp, item.alamat_rumah, item.kota, item.provinsi,
+                            item.kode_pos || '', item.negara || 'Indonesia', item.jurusan, item.angkatan, item.semester || '', item.ipk || '', item.status_mahasiswa || ''
+                        ];
+                        csvContent += row.map(field => `"${field}"`).join(',') + '\n';
+                    });
+                    
+                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', `data_mahasiswa_${new Date().toISOString().split('T')[0]}.csv`);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    alert(`Data berhasil diexport! Total ${submissions.length} mahasiswa.`);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Fallback to localStorage
+                    fallbackExport();
+                });
+        }
+
+        // Fallback export from localStorage
+        function fallbackExport() {
+            const existingData = localStorage.getItem('mahasiswa_submissions');
+            if (!existingData) {
+                alert('Tidak ada data untuk diexport');
+                return;
+            }
+            
+            const submissions = JSON.parse(existingData);
+            if (submissions.length === 0) {
+                alert('Tidak ada data untuk diexport');
+                return;
+            }
+            
+            const headers = [
+                'NIM', 'Nama Lengkap', 'Nama Panggilan', 'Tempat Lahir', 'Tanggal Lahir',
+                'Jenis Kelamin', 'Agama', 'Email', 'No HP', 'Alamat Rumah', 'Kota', 'Provinsi',
+                'Kode Pos', 'Negara', 'Jurusan', 'Angkatan', 'Semester', 'IPK', 'Status Mahasiswa'
+            ];
+            
+            let csvContent = headers.join(',') + '\n';
+            
+            submissions.forEach(item => {
+                const row = [
+                    item.nim, item.nama_lengkap, item.nama_panggilan || '', item.tempat_lahir, item.tanggal_lahir,
+                    item.jenis_kelamin, item.agama, item.email, item.no_hp, item.alamat_rumah, item.kota, item.provinsi,
+                    item.kode_pos || '', item.negara || 'Indonesia', item.jurusan, item.angkatan, item.semester || '', item.ipk || '', item.status_mahasiswa || ''
+                ];
+                csvContent += row.map(field => `"${field}"`).join(',') + '\n';
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `data_mahasiswa_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert(`Data berhasil diexport! Total ${submissions.length} mahasiswa.`);
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (!confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan!')) return;
+            
+            // Try server first
+            fetch('http://localhost:5000/mahasiswa', {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('dataSection').style.display = 'none';
+                    document.getElementById('dataContainer').innerHTML = '';
+                    alert('Semua data telah dihapus dari server!');
+                } else {
+                    throw new Error('Gagal menghapus dari server');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Fallback to localStorage
+                localStorage.removeItem('mahasiswa_submissions');
+                document.getElementById('dataSection').style.display = 'none';
+                document.getElementById('dataContainer').innerHTML = '';
+                alert('Semua data telah dihapus dari localStorage!');
+            });
+        }
+
+        // Debug: Tampilkan data di console
+        function debugData() {
+            const existingData = localStorage.getItem('biodata_submissions');
+            console.log('=== DEBUG DATA ===');
+            console.log('Raw localStorage:', existingData);
+            if (existingData) {
+                const submissions = JSON.parse(existingData);
+                console.log('Parsed data:', submissions);
+                console.log('Total submissions:', submissions.length);
+                submissions.forEach((item, index) => {
+                    console.log(`Submission ${index + 1}:`, item);
+                });
+            } else {
+                console.log('No data found in localStorage');
+            }
+            console.log('==================');
+        }
+
+        // Tambahkan tombol debug di halaman
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tambahkan tombol debug
+            const debugBtn = document.createElement('button');
+            debugBtn.className = 'btn btn-warning';
+            debugBtn.style.position = 'fixed';
+            debugBtn.style.top = '20px';
+            debugBtn.style.right = '20px';
+            debugBtn.style.zIndex = '1000';
+            debugBtn.textContent = '🐛 Debug';
+            debugBtn.onclick = debugData;
+            document.body.appendChild(debugBtn);
+        });
+    </script>
+</body>
+</html> 
